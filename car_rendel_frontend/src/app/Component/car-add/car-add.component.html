@@ -1,0 +1,45 @@
+<div class="container">
+  <h3>Add New Car</h3>
+  <form [formGroup]="carForm" (ngSubmit)="saveCar()">
+    <div class="form-group">
+      <label>Model</label>
+      <input formControlName="model" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Brand</label>
+      <input formControlName="brand" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Registration No</label>
+      <input formControlName="registrationNo" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="rentalPrice">Rental Price</label>
+      <input type="number" id="rentalPrice" formControlName="rentalPrice" class="form-control" required>
+      <div *ngIf="carForm.get('rentalPrice')?.hasError('min') && carForm.get('rentalPrice')?.touched">
+        Rental Price cannot be negative.
+      </div>
+    </div>
+  
+    <div class="form-group">
+      <label for="keyMoney">Key Money</label>
+      <input type="number" id="keyMoney" formControlName="keyMoney" class="form-control" required>
+      <div *ngIf="carForm.get('keyMoney')?.hasError('min') && carForm.get('keyMoney')?.touched">
+        Key Money cannot be negative.
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Front Image URL</label>
+      <input formControlName="frontImage" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Back Image URL</label>
+      <input formControlName="backImage" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label>Available Seats</label>
+      <input formControlName="availableSeats" type="number" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-primary" [disabled]="carForm.invalid">Save</button>
+  </form>
+</div>

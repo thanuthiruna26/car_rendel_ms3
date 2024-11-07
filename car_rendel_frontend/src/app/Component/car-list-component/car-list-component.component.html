@@ -1,0 +1,100 @@
+<div class="container">
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Model</th>
+        <th>Brand</th>
+        <th>Registration No</th>
+        <th>Available Seats</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let car of cars">
+        <td>{{ car.model }}</td>
+        <td>{{ car.brand }}</td>
+        <td>{{ car.registrationNo }}</td>
+        <td>{{ car.availableSeats }}</td>
+        <td>
+          <button (click)="openUpdatePopup(car)" class="btn btn-warning">Update</button>
+          <button (click)="openDeletePopup(car)" class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Update Popup -->
+  <div *ngIf="isUpdatePopupOpen" class="modal show d-block" style="background: rgba(0,0,0,0.5);">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Update Car</h5>
+          <button type="button" class="close" (click)="closePopup()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="carForm">
+            <div class="form-group">
+              <label>Model</label>
+              <input formControlName="model" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Brand</label>
+              <input formControlName="brand" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label>Registration No</label>
+              <input formControlName="registrationNo" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="rentalPrice">Rental Price</label>
+              <input type="number" id="rentalPrice" formControlName="rentalPrice" class="form-control">
+            </div>
+            <div class="form-group">
+              <label for="keyMoney">Key Money</label>
+              <input type="number" id="keyMoney" formControlName="keyMoney" class="form-control">
+            </div>
+            <div class="form-group">
+              <label>Available Seats</label>
+              <input formControlName="availableSeats" type="number" class="form-control" required>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closePopup()">Cancel</button>
+          <button type="button" class="btn btn-primary" (click)="updateCar()">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Popup -->
+  <div *ngIf="isDeletePopupOpen" class="modal show d-block" style="background: rgba(0,0,0,0.5);">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Delete Car</h5>
+          <button type="button" class="close" (click)="closePopup()">&times;</button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex">
+            <div class="w-50">
+              <img [src]="selectedCar?.frontImage" alt="Front Image" class="img-fluid">
+            </div>
+            <div class="w-50">
+              <p><strong>Model:</strong> {{ selectedCar?.model }}</p>
+              <p><strong>Brand:</strong> {{ selectedCar?.brand }}</p>
+              <p><strong>Registration No:</strong> {{ selectedCar?.registrationNo }}</p>
+              <p><strong>Rental Price:</strong> {{ selectedCar?.rentalPrice }}</p>  
+            <p><strong>Key Money:</strong> {{ selectedCar?.keyMoney }}</p>  
+              <p><strong>Available Seats:</strong> {{ selectedCar?.availableSeats }}</p>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" (click)="closePopup()">Cancel</button>
+          <button type="button" class="btn btn-danger" (click)="deleteCar()">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
